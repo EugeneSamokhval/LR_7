@@ -1,22 +1,28 @@
 import copy
 import random
 
-test_text = [random.randrange(101) for iteration in range(100)]
+test_text = ['Hello', 'world', 'peace', 'something', 'lunch', 'dinner', 'breakfast', 'text', 'number', 'random']
 
 
 def text_into_binary(array_of_text: list):
     final_form = []
-    for number in array_of_text:
-        bin_word_container = bin(number)
-        final_form.append([bin_word_container.removeprefix('0b'), number])
+    counter = 0
+    for word in array_of_text:
+        temp_word = ''
+        for sign in word:
+            temp_word += bin(ord(sign)).removeprefix('0b')
+        if len(temp_word) < 20:
+            while len(temp_word) <20:
+                temp_word=temp_word +'0'
+        elif len(temp_word) > 20:
+            temp_word = temp_word[0:19:1]
+        else:
+            pass
+        final_form.append([temp_word, word])
     return final_form
 
 
 def comparison_more(key, comparable):
-    if len(comparable) > len(key):
-        return False
-    elif len(comparable) < len(key):
-        return True
     for sign in range(len(key)):
         if int(key[sign]) > int(comparable[sign]):
             return True
@@ -92,13 +98,13 @@ def search_max_equivalent(key_word, search_location):
 def show_search_result_near(search_result_options):
     print('Search nearest\n')
     for search_result in search_result_options:
-        print('Binary form:', search_result[1], '\nDecimal form:', search_result[0], end='\n')
+        print('String form:', search_result[1], '\nBinary form:', search_result[0], end='\n')
 
 
 def show_search_result_max_equivalent(search_result_options):
-    print('Search mas equivalence\n')
+    print('Search max equivalence\n')
     for search_result in search_result_options:
-        print('Binary form:', search_result[1][0], '\nDecimal form:', search_result[1][1], '\nNumber of equal signs:',
+        print('Binary form:', search_result[1][0], '\nString form:', search_result[1][1], '\nNumber of equal signs:',
               search_result[0], end='\n')
 
 
@@ -107,7 +113,7 @@ def main():
     user_input = 'Yes'
     while user_input != 'exit':
         user_input = input('\nInput search key\n')
-        search_key = text_into_binary([int(user_input)])
+        search_key = text_into_binary([user_input])
         if user_input != 'exit':
             show_search_result_near(search_near(key_word=search_key, search_location=search_location,
                                                 top=True, bottom=True))

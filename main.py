@@ -77,6 +77,7 @@ def max_equivalence(key, comparable):
             counter+=1
     return counter
 
+
 def search_max_equivalent(key_word, search_location):
     list_of_counters = []
     result = []

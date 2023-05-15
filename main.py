@@ -23,12 +23,12 @@ def text_into_binary(array_of_text: list):
 
 
 def comparison_more(key, comparable):
-    for sign in range(len(key)):
-        if int(key[sign]) > int(comparable[sign]):
-            return True
-        elif int(key[sign]) < int(comparable[sign]):
-            return False
-    return True
+    g = False
+    l = False
+    for sign in range(20, -1):
+        g = g or (not key[sign] and comparable[sign] and not l)
+        l = l or (key[sign] and not comparable[sign] and not g)
+    return g > l
 
 
 def search_the_greatest(search_results):
@@ -76,7 +76,6 @@ def max_equivalence(key, comparable):
         if key[0][sign] == comparable[0][sign]:
             counter+=1
     return counter
-
 
 def search_max_equivalent(key_word, search_location):
     list_of_counters = []
